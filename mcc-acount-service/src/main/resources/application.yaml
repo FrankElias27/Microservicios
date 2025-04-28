@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: mcc-account-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost:5432}/${DB_NAME:dbmcc_colin}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true;
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+server:
+  port: ${SERVER_PORT:8081}

@@ -20,22 +20,22 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public CustomerDTO getByCu(String cu) {
-        log.info("Get Customer By cu: {}", cu);
-        Optional<CustomerEntity> optionalcustomerEntity = customerRepository.findByCu(cu);
-        if (optionalcustomerEntity.isEmpty()) {
+        log.info("Get Customer by cu: {}" , cu);
+        Optional<CustomerEntity> optionalCustomerEntity = customerRepository.findByCu(cu);
+        if(optionalCustomerEntity.isEmpty()) {
             return CustomerDTO.builder().build();
         }
-        return optionalcustomerEntity.get().getDTO();
+        return optionalCustomerEntity.get().getDTO();
     }
 
     @Override
     public List<CustomerDTO> getAll() {
-        return this.customerRepository.findAll().stream().map(CustomerEntity:: getDTO).toList();
+        return this.customerRepository.findAll().stream().map(CustomerEntity::getDTO).toList();
     }
 
     @Override
     public CustomerDTO add(CustomerDTO customerDTO) {
-        log.info("Add customer {}", customerDTO);
+        log.info("Add customer {}" , customerDTO);
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setData(customerDTO);
         return this.customerRepository.save(customerEntity).getDTO();
@@ -53,11 +53,12 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public CustomerDTO getById(String id) {
-        log.info("Get customer by id {}", id);
-        Optional<CustomerEntity> optionalcustomerEntity = this.customerRepository.findById(id);
-        if(optionalcustomerEntity.isEmpty()) {
+        log.info("Get customer by id {}" , id);
+        Optional<CustomerEntity> optionalCustomerEntity = this.customerRepository.findById(id);
+        if(optionalCustomerEntity.isEmpty()) {
             return CustomerDTO.builder().build();
         }
-        return optionalcustomerEntity.get().getDTO();
+        return optionalCustomerEntity.get().getDTO();
     }
 }
+

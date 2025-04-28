@@ -16,17 +16,18 @@ public class CustomerRESTController {
     private ICustomerService customerService;
 
     @GetMapping
-    public List<CustomerDTO> getAllCustomer(){
+    public List<CustomerDTO> getAllCustomers() {
         return this.customerService.getAll();
     }
 
     @PostMapping
-    public CustomerDTO getCustomer(CustomerDTO customerDTO){
+    public CustomerDTO addCustomer(@RequestBody CustomerDTO customerDTO) {
         return this.customerService.add(customerDTO);
     }
 
     @GetMapping("cu/{cu}")
-    public CustomerDTO getCustomerByCu(@PathVariable String cu){
+    public CustomerDTO getCustomerByCu(@PathVariable String cu) {
         return this.customerService.getByCu(cu);
     }
+
 }
