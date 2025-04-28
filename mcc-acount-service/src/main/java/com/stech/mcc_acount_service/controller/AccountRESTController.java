@@ -1,6 +1,7 @@
 package com.stech.mcc_acount_service.controller;
 
 import com.stech.mcc_acount_service.dto.AccountDTO;
+import com.stech.mcc_acount_service.dto.DepositDTO;
 import com.stech.mcc_acount_service.service.interfaces.IAcoountService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,4 +24,10 @@ public class AccountRESTController {
     public AccountDTO addAccount(@RequestBody AccountDTO accountDTO){
         return this.accountService.add(accountDTO);
     }
+
+    @PutMapping
+    public AccountDTO depositAccount(@RequestBody DepositDTO depositDTO) {
+        return this.accountService.depositInAccount(depositDTO);
+    }
+
 }
