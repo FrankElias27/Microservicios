@@ -1,10 +1,12 @@
 package com.stech.mcc_credit_disbursement_service.service.impl;
 
 import com.stech.mcc_credit_disbursement_service.client.IAccountRESTClient;
+import com.stech.mcc_credit_disbursement_service.config.PublisherMessageService;
 import com.stech.mcc_credit_disbursement_service.dto.AccountDTO;
 import com.stech.mcc_credit_disbursement_service.dto.CreditDisbursementDTO;
 import com.stech.mcc_credit_disbursement_service.dto.DepositDTO;
 import com.stech.mcc_credit_disbursement_service.entity.CreditDisbursementEntity;
+import com.stech.mcc_credit_disbursement_service.event.CreditDisburstmenEvent;
 import com.stech.mcc_credit_disbursement_service.repository.ICreditDisbursementRepository;
 import com.stech.mcc_credit_disbursement_service.service.intefaces.ICreditDisbursementService;
 import lombok.AccessLevel;
@@ -22,6 +24,7 @@ public class CreditDisbursementServiceImpl implements ICreditDisbursementService
 
     private  final ICreditDisbursementRepository creditDisbursementRepository;
     private final IAccountRESTClient accountRESTClient;
+    private final PublisherMessageService publisherMessageService;
 
     @Override
     public List<CreditDisbursementDTO> getAll() {
@@ -42,6 +45,15 @@ public class CreditDisbursementServiceImpl implements ICreditDisbursementService
             log.info("Deposit in Account successful");
             CreditDisbursementEntity creditDisbursementEntity = new CreditDisbursementEntity();
             creditDisbursementEntity.setData(creditDisbursementDTO);
+            CreditDisbursementEntity savedEntity = this.creditDisbursementRepository.save(creditDisbursementEntity);
+            //send Message
+            CreditDisburstmenEvent creditDisburstmenEvent = CreditDisburstmenEvent.builder()
+                    .accountNumber(creditDisbursementDTO.getAccountNumber())
+                    .customerCu(creditDisbursementDTO.getCustomerCu())
+                    .amount(creditDisbursementDTO.getAmount())
+                    .email("frankmascco@gmail.com")
+                    .build();
+            this.publisherMessageService.sendCreditDisbursementEvent(creditDisburstmenEvent);
             return this.creditDisbursementRepository.save(creditDisbursementEntity).getDTO();
         }
         return CreditDisbursementDTO.builder().build();

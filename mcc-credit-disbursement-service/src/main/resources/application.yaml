@@ -22,3 +22,8 @@ feign:
     account:
       name: account-service
       url: http://localhost:8081/accounts
+azure:
+  servicebus:
+    connection-string: ${SERVICE_BUS_CONNECTION_STRING}
+    queue-name: credit-disbursement-queue
+
