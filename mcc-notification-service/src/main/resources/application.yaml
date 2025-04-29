@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: mcc-notification-service
+  mail:
+    host: ${MAIL_HOST:sandbox.smtp.mailtrap.io}
+    port: ${MAIL_PORT:2525}
+    username: ${MAIL_USERNAME:71cde1892ecd82}
+    password: ${MAIL_PASSWORD:f81faae7782b70}
+server:
+  port: ${SERVER_PORT:8084}
+azure:
+  servicebus:
+    connection-string: ${SERVICE_BUS_CONNECTION_STRING}
+    queue-name: credit-disbursement-queue
