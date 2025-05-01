@@ -22,3 +22,8 @@ feign:
     customer:
       name: customer-service
       url: http://localhost:8083/customers
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
